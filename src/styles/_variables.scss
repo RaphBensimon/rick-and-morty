@@ -2,5 +2,8 @@
 $black: #191919;
 $white: #ffffff;
 $grey: #727679;
-
-$border-radius: 8px;
+$light-grey: lighten($grey, 25%);
+$primary: #01afc7;
+$secondary: #10133e;
+$transition: 0.25s;
+$border-radius: 4px;
