@@ -1,19 +1,24 @@
 <template>
 	<div id="search">
-		<input placeholder="Recherche" v-model="search">
-		<div v-if="characters.length">
-			<Character v-for="(character, key) in characters" :key="key" :character="character" />
-			<Pagination :current-page="currentPage" :page-count="pageCount" @set-current-page="setCurrentPage">
-				<template #previous>
-					Précédent
-				</template>
-				<template #next>
-					Suivant
-				</template>
-			</Pagination>
-		</div>
+		<input placeholder="Recherche" v-model="search" type="text">
+		<spinner v-if="loading" id="spinner" size="lg" />
 		<div v-else>
-			Aucun personnage n'a été trouvé
+			<div v-if="characters.length">
+				<div class="characters-list">
+					<Character v-for="(character, key) in characters" :key="key" :character="character" />
+				</div>
+				<Pagination :current-page="currentPage" :page-count="pageCount" @set-current-page="setCurrentPage">
+					<template #previous>
+						Précédent
+					</template>
+					<template #next>
+						Suivant
+					</template>
+				</Pagination>
+			</div>
+			<div v-else>
+				Aucun personnage n'a été trouvé
+			</div>
 		</div>
 	</div>
 </template>
@@ -31,7 +36,8 @@ export default {
 			currentPage   : 0,
 			pageCount     : 0,
 			lengthPerPage : 20,
-			search        : ''
+			search        : '',
+			loading       : false
 		}
 	},
 	created() {
@@ -49,21 +55,36 @@ export default {
 	},
 	methods : {
 		async loadCharacters() {
+			this.loading = true
 			await this.axios
 				.get(`https://rickandmortyapi.com/api/character/?page=${this.currentPage}&name=${this.search}`)
 				.then((res) => {
 					this.pageCount = res.data.info.pages
 					this.characters = res.data.results
+					this.checkIfAllImageIsloaded()
 				})
 				.catch((err) => {
 					if(err.response.status == 404) {
 						this.characters = []
+						this.loading = false
 					}
 				})
 		},
 		setCurrentPage(page) {
 			this.currentPage = page
 		},
+		checkIfAllImageIsloaded() {
+			var imagesLoadedLength = 0
+			this.characters.forEach((e) => {
+				const img = new Image()
+				img.src = e.image
+				img.onload = () => {
+					imagesLoadedLength++
+					if(imagesLoadedLength == this.characters.length)
+						this.loading = false
+				}
+			})
+		}
 	},
 	watch : {
 		search(search) {
@@ -94,3 +115,19 @@ export default {
 	}
 }
 </script>
+<style lang="scss" scoped>
+.characters-list {
+	display: flex;
+	flex-wrap: wrap;
+}
+.characters-list > * {
+	width: 15.6666666667%;
+	margin: 0.5%;
+}
+#spinner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+</style>
