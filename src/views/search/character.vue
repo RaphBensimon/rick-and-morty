@@ -1,5 +1,5 @@
 <template>
-	<div class="character">
+	<div class="character" @click="goToCharacter(character.id)">
 		{{ character.name }}
 	</div>
 </template>
@@ -9,6 +9,11 @@ export default {
 		character : {
 			required : true,
 			type     : Object
+		}
+	},
+	methods : {
+		goToCharacter(id) {
+			this.$router.push(`/character/${id}`)
 		}
 	}
 }
