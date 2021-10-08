@@ -34,7 +34,7 @@ export default {
 	data() {
 		return {
 			characters    : [],
-			currentPage   : 0,
+			currentPage   : 1,
 			pageCount     : 0,
 			lengthPerPage : 20,
 			search        : '',
@@ -43,7 +43,7 @@ export default {
 	},
 	created() {
 		const query = this.$route.query
-		if(query.page || query.search) {
+		if(query.page != 1 || query.search) {
 			if(query.search) {
 				this.search = query.search
 			}
