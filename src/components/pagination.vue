@@ -70,14 +70,15 @@ export default {
 	margin: 0 3px;
 	padding: 10px;
 	cursor: pointer;
-	border: 2px solid $secondary;
+	border: 2px solid $primary;
+	background: lighten($primary, 15%);
 	color: $secondary;
 	border-radius: $border-radius;
 	transition: 0.15s;
 }
 .current-page {
-	background: lighten($primary, 15%);
-	color: $secondary;
+	background: $secondary;
+	color: $thirdary;
 }
 .page:not(.three-point):hover {
 	background: $secondary;
