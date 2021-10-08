@@ -20,7 +20,10 @@ const routes = [
 
 const router = new VueRouter({
 	mode : 'history',
-	routes
+	routes,
 })
-
+router.beforeEach((to, from, next) => {
+	window.scroll(0, 0)
+	next()
+})
 export default router
