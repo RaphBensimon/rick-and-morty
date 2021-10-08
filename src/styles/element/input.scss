@@ -6,9 +6,12 @@ input[type='text'] {
 	font-weight: 600;
 	width: 100%;
 	background-color: lighten($primary, 15%);
-	color: $thirdary;
+	color: $secondary;
 	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 	&:focus {
 		box-shadow: 0 0 0.2rem 0.2rem rgba($secondary, 0.5);
+	}
+	&::placeholder {
+		color: darken($secondary, 15%);
 	}
 }
