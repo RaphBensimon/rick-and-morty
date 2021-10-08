@@ -1,13 +1,14 @@
 <template>
 	<div id="search">
 		<input placeholder="Recherche" v-model="search" type="text">
-		<spinner v-if="loading" id="spinner" size="lg" />
+		<spinner v-if="loading" id="spinner" size="lg" variant="secondary" />
 		<div v-else>
 			<div v-if="characters.length">
 				<div class="characters-list">
 					<Character v-for="(character, key) in characters" :key="key" :character="character" />
 				</div>
-				<Pagination :current-page="currentPage" :page-count="pageCount" @set-current-page="setCurrentPage">
+				<Pagination :current-page="currentPage" :page-count="pageCount" @set-current-page="setCurrentPage"
+					id="pagination">
 					<template #previous>
 						Précédent
 					</template>
@@ -16,9 +17,9 @@
 					</template>
 				</Pagination>
 			</div>
-			<div v-else>
+			<p v-else>
 				Aucun personnage n'a été trouvé
-			</div>
+			</p>
 		</div>
 	</div>
 </template>
@@ -116,13 +117,43 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+#pagination {
+	position: relative;
+	left: 50%;
+	transform: translateX(-50%);
+}
 .characters-list {
 	display: flex;
 	flex-wrap: wrap;
+	margin: 1rem -0.5%;
 }
 .characters-list > * {
-	width: 15.6666666667%;
+	width: 15.667%;
 	margin: 0.5%;
+}
+
+@media screen and (max-width: 1000px) {
+	.characters-list > * {
+		width: 19%;
+	}
+}
+
+@media screen and (max-width: 1000px) {
+	.characters-list > * {
+		width: 24%;
+	}
+}
+
+@media screen and (max-width: 750px) {
+	.characters-list > * {
+		width: 32.334%;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.characters-list > * {
+		width: 49%;
+	}
 }
 #spinner {
 	position: absolute;

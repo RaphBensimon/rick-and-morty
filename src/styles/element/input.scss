@@ -1,14 +1,14 @@
 input[type='text'] {
 	border-radius: $border-radius;
-	border: 1px solid $light-grey;
+	border: 1px solid $primary;
 	padding: 5px 10px;
 	min-height: 35px;
 	font-weight: 600;
 	width: 100%;
-	color: $black;
+	background-color: lighten($primary, 15%);
+	color: $thirdary;
 	transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 	&:focus {
-		box-shadow: 0 0 0 0.2rem rgba($primary, 0.25);
-		border-color: $primary;
+		box-shadow: 0 0 0.2rem 0.2rem rgba($secondary, 0.5);
 	}
 }

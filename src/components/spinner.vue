@@ -43,6 +43,10 @@ export default {
 	border-color: rgba($primary, 0.25);
 	border-bottom-color: $primary;
 }
+.spin.secondary {
+	border-color: rgba($secondary, 0.25);
+	border-bottom-color: $secondary;
+}
 
 @keyframes spinner-border {
 	from {
