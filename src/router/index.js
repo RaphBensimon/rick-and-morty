@@ -5,7 +5,7 @@ import Character from '@/views/Character'
 
 Vue.use(VueRouter)
 
-Vue.prototype.$metaTitle = 'Rick and morty'
+Vue.prototype.$metaTitle = 'Rick and Morty'
 const routes = [
 	{
 		path      : '*',

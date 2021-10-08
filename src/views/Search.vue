@@ -1,6 +1,6 @@
 <template>
 	<div id="search">
-		<input placeholder="Recherche" v-model="search" type="text">
+		<input placeholder="Search" v-model="search" type="text">
 		<spinner v-if="loading" id="spinner" size="lg" variant="secondary" />
 		<div v-else>
 			<div v-if="characters.length">
@@ -10,15 +10,15 @@
 				<Pagination :current-page="currentPage" :page-count="pageCount" @set-current-page="setCurrentPage"
 					id="pagination">
 					<template #previous>
-						Précédent
+						Previous
 					</template>
 					<template #next>
-						Suivant
+						Next
 					</template>
 				</Pagination>
 			</div>
 			<p v-else>
-				Aucun personnage n'a été trouvé
+				Any character found
 			</p>
 		</div>
 	</div>
