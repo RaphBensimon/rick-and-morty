@@ -34,7 +34,7 @@ export default {
 	data() {
 		return {
 			characters    : [],
-			currentPage   : 1,
+			currentPage   : 0,
 			pageCount     : 0,
 			lengthPerPage : 20,
 			search        : '',
@@ -51,7 +51,7 @@ export default {
 				this.currentPage = parseInt(query.page)
 			}
 		} else {
-			this.loadCharacters()
+			this.currentPage = 1
 		}
 	},
 	methods : {
