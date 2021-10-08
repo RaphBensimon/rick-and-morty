@@ -43,7 +43,7 @@ export default {
 	},
 	created() {
 		const query = this.$route.query
-		if(query.page != 1 || query.search) {
+		if((query.page && query.page != 1) || query.search) {
 			if(query.search) {
 				this.search = query.search
 			}
