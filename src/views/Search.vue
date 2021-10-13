@@ -57,8 +57,11 @@ export default {
 	methods : {
 		async loadCharacters() {
 			this.loading = true
-			await this.axios
-				.get(`https://rickandmortyapi.com/api/character/?page=${this.currentPage}&name=${this.search}`)
+			const param = {
+				currentPage : this.currentPage,
+				search      : this.search
+			}
+			await this.$store.dispatch('characters/load', param)
 				.then((res) => {
 					this.pageCount = res.data.info.pages
 					this.characters = res.data.results
