@@ -1,6 +1,12 @@
 <template>
 	<div id="search">
 		<input placeholder="Search" v-model="search" type="text">
+		<input id="alive" v-model="status" type="radio" value="alive">
+		<label for="alive">Alive</label>
+		<input id="dead" v-model="status" type="radio" value="dead">
+		<label for="dead">Dead</label>
+		<input id="unknown" v-model="status" type="radio" value="unknown">
+		<label for="unknown">Unknown</label>
 		<spinner v-if="loading" id="spinner" size="lg" variant="secondary" />
 		<div v-else>
 			<div v-if="characters.length">
@@ -34,32 +40,24 @@ export default {
 	data() {
 		return {
 			characters    : [],
-			currentPage   : 0,
+			currentPage   : 1,
 			pageCount     : 0,
 			lengthPerPage : 20,
 			search        : '',
-			loading       : false
+			loading       : false,
+			status        : ''
 		}
 	},
 	created() {
-		const query = this.$route.query
-		if((query.page && query.page != 1) || query.search) {
-			if(query.search) {
-				this.search = query.search
-			}
-			if(query.page) {
-				this.currentPage = parseInt(query.page)
-			}
-		} else {
-			this.currentPage = 1
-		}
+		this.loadCharacters()
 	},
 	methods : {
 		async loadCharacters() {
 			this.loading = true
 			const param = {
 				currentPage : this.currentPage,
-				search      : this.search
+				search      : this.search,
+				status      : this.status
 			}
 			await this.$store.dispatch('characters/load', param)
 				.then((res) => {
@@ -67,11 +65,9 @@ export default {
 					this.characters = res.data.results
 					this.checkIfAllImageIsloaded()
 				})
-				.catch((err) => {
-					if(err.response.status == 404) {
-						this.characters = []
-						this.loading = false
-					}
+				.catch(() => {
+					this.characters = []
+					this.loading = false
 				})
 		},
 		setCurrentPage(page) {
@@ -91,30 +87,15 @@ export default {
 		}
 	},
 	watch : {
-		search(search) {
+		search() {
 			this.currentPage = 1
 			this.loadCharacters()
-			const query = this.$route.query
-			if(query.search != search) {
-				this.$router.replace({
-					query : {
-						...query,
-						...{ search: search }
-					}
-				})
-			}
 		},
-		currentPage(page) {
+		currentPage() {
 			this.loadCharacters()
-			const query= this.$route.query
-			if(query.page != page) {
-				this.$router.replace({
-					query : {
-						...query,
-						...{ page: page }
-					}
-				})
-			}
+		},
+		status() {
+			this.loadCharacters()
 		}
 	}
 }
