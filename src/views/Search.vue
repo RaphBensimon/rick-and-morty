@@ -1,12 +1,16 @@
 <template>
 	<div id="search">
 		<input placeholder="Search" v-model="search" type="text">
-		<input id="alive" v-model="status" type="radio" value="alive">
-		<label for="alive">Alive</label>
-		<input id="dead" v-model="status" type="radio" value="dead">
-		<label for="dead">Dead</label>
-		<input id="unknown" v-model="status" type="radio" value="unknown">
-		<label for="unknown">Unknown</label>
+		<div id="status">
+			<input id="alive" v-model="status" type="radio" value="alive">
+			<label for="alive">Alive</label>
+			<input id="dead" v-model="status" type="radio" value="dead">
+			<label for="dead">Dead</label>
+			<input id="unknown" v-model="status" type="radio" value="unknown">
+			<label for="unknown">Unknown</label>
+			<input id="all" v-model="status" type="radio" value="all">
+			<label for="all">All</label>
+		</div>
 		<spinner v-if="loading" id="spinner" size="lg" variant="secondary" />
 		<div v-else>
 			<div v-if="characters.length">
@@ -45,7 +49,7 @@ export default {
 			lengthPerPage : 20,
 			search        : '',
 			loading       : false,
-			status        : ''
+			status        : 'all'
 		}
 	},
 	created() {
@@ -144,5 +148,8 @@ export default {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+#status {
+	margin-top: 1rem;
 }
 </style>
